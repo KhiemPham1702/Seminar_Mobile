@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_plugin/cccd_screen.dart';
 import 'package:test_plugin/services/nfc_services.dart';
+import 'package:test_plugin/utils/dialogs.dart';
 import 'package:test_plugin/write_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,13 +21,15 @@ class HomeScreen extends StatelessWidget {
         'text': 'Đọc NFC ',
         'icon': Icons.remove_red_eye_rounded,
         'onPress': () {
-          NFCServices.instance.readFromNFC();
+          Dialogs.showNFCAction(context , 'Đọc');
+          NFCServices.instance.readFromNFC(context);
         }
       },
       {
         'text': 'Ghi NFC ',
         'icon': Icons.read_more,
         'onPress': () {
+
           Navigator.push(context, MaterialPageRoute(builder: (context) => WriteScreen()));
         }
       }
