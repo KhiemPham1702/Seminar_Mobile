@@ -27,6 +27,7 @@
     <!--#enddocregion android-queries-->
     <application
         android:label="test_plugin"
+        android:requestLegacyExternalStorage="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

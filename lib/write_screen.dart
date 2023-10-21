@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_plugin/image_write_screen.dart';
 import 'package:test_plugin/services/nfc_services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:test_plugin/text_write_screen.dart';
@@ -26,6 +27,14 @@ class WriteScreen extends StatelessWidget {
         'icon': Icons.link,
         'onPress': () {
           Navigator.push(context, MaterialPageRoute(builder: (context) =>  UrlWriteScreen()));
+        }
+      },
+      {
+        'text': 'Image',
+        'title': 'Thêm ảnh record',
+        'icon': Icons.image,
+        'onPress': () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>  ImageWriteScreen()));
         }
       },
     ];

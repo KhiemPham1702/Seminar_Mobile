@@ -1,5 +1,8 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -50,7 +53,7 @@ class NFCServices {
     }
   }
 
-  void writeToNFC( int type, String text , BuildContext context) async {
+  void writeToNFC( int type, String text , BuildContext context, [Uint8List? uInt8List]) async {
     //type: 0 text, 1: url
     final cubit = context.read<LoadingCubit>();
     var availability = await FlutterNfcKit.nfcAvailability;
@@ -66,8 +69,8 @@ class NFCServices {
         if (tag.ndefWritable!) {
           if (type == 0) {
             debugPrint(text);
-            await FlutterNfcKit.writeNDEFRecords([
 
+            await FlutterNfcKit.writeNDEFRecords([
               ndef.TextRecord(text: text ?? '', language: 'en')
             ]);
           }
@@ -76,7 +79,19 @@ class NFCServices {
               ndef.UriRecord.fromString('0$text')
             ]);
           }
-
+          // else if (type == 2) {
+          //
+          //   String encodedString = base64Encode(uInt8List!);
+          //   debugPrint(encodedString.toString());
+          //   try {
+          //     await FlutterNfcKit.writeNDEFRecords([
+          //       ndef.TextRecord(text: '2$encodedString', language: 'en')
+          //     ]);
+          //   }
+          //   catch (e) {
+          //     debugPrint(e.toString());
+          //   }
+          // }
           cubit.update(1);
         }
       }

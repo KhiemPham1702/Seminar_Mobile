@@ -67,11 +67,11 @@ class _CCCDScreenState extends State<CCCDScreen> {
   }
 
   TextEditingController passportNumberController = TextEditingController()
-    ..text = '066202014790';
+    ..text = '';
   TextEditingController birthDayNumberController = TextEditingController()
-    ..text = '020217';
+    ..text = '';
   TextEditingController expireNumberController = TextEditingController()
-    ..text = '270217';
+    ..text = '';
 
   void showWaiting(BuildContext context) {
     var alert = AlertDialog(
