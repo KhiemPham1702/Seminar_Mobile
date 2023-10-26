@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final listItem = [
       {
-        'text': '(Đặc biệt) Đọc NFC CCCD',
+        'text': 'eKYC',
         'icon': Icons.credit_card,
         'onPress': () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const CCCDScreen()));

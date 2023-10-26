@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:epassportnfc/epassportnfc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_plugin/utils/dialogs.dart';
 
 class CCCDScreen extends StatefulWidget {
   const CCCDScreen({Key? key}) : super(key: key);
@@ -44,7 +45,8 @@ class _CCCDScreenState extends State<CCCDScreen> {
         state = "Đọc thẻ thành công";
         // showNFCDataDialog(context, datanfc);
         Future.delayed(const Duration(seconds: 1), () {
-          showNFCDataDialog(context, datanfc);
+          // showNFCDataDialog(context, datanfc);
+          Dialogs.showCCCD(context, datanfc);
         });
       }
     });
@@ -54,7 +56,7 @@ class _CCCDScreenState extends State<CCCDScreen> {
     String platformVersion;
     try {
       platformVersion = await Epassportnfc.nfc(passportNumberController.text,
-          birthDayNumberController.text, expireNumberController.text) ??
+              birthDayNumberController.text, expireNumberController.text) ??
           'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
@@ -127,66 +129,79 @@ class _CCCDScreenState extends State<CCCDScreen> {
       appBar: AppBar(
         title: const Text('Scan CCCD NFC'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 180),
-            Padding(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
               padding: const EdgeInsets.all(10),
-              child: TextField(
+              child: TextFormField(
                 controller: passportNumberController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'CCCD',
-                    hintText: 'CCCD'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  constraints: const BoxConstraints(maxHeight: 50),
+                  labelText: 'CCCD',
+                  labelStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 1)),
+                ),
+              )),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextFormField(
                 controller: birthDayNumberController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Ngày sinh (yy/MM/dd)',
-                    hintText: 'Ngày sinh'),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextField(
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  constraints: const BoxConstraints(maxHeight: 50),
+                  labelText: 'Ngày sinh (yy/MM/dd)',
+                  labelStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 1)),
+                )),
+          ),
+          Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextFormField(
                 controller: expireNumberController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Ngày hết hạn (yy/MM/dd)',
-                    hintText: 'Ngày hết hạn'),
-              ),
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  constraints: const BoxConstraints(maxHeight: 50),
+                  labelText: 'Ngày hết hạn (yy/MM/dd)',
+                  labelStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 1)),
+                ),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                initPlatformState();
+              },
+              child: const Text('Read NFC')),
+          const SizedBox(height: 50),
+          Text(state),
+          const SizedBox(height: 15),
+          if (isScanning)
+            const LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              value: null,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  initPlatformState();
-                },
-                child: Text('Read NFC')),
-
-            const SizedBox(height: 50),
-            Text(state),
-            const SizedBox(height: 15),
-            if (isScanning)
-              const LinearProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                value: null,
-              ),
-            if (datanfc?.status == 'SUCCESS' &&
-                datanfc != null &&
-                datanfc?.imageData != null)
-              const Column(
-                children: [],
-              )
-          ],
-        ),
+          if (datanfc?.status == 'SUCCESS' &&
+              datanfc != null &&
+              datanfc?.imageData != null)
+            const Column(
+              children: [],
+            )
+        ],
       ),
     );
   }
 }
-

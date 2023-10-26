@@ -29,14 +29,6 @@ class WriteScreen extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) =>  UrlWriteScreen()));
         }
       },
-      {
-        'text': 'Image',
-        'title': 'Thêm ảnh record',
-        'icon': Icons.image,
-        'onPress': () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  ImageWriteScreen()));
-        }
-      },
     ];
     return Scaffold(
       appBar: AppBar(
