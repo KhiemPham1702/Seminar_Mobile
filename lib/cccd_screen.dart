@@ -26,7 +26,8 @@ class _CCCDScreenState extends State<CCCDScreen> {
 
   void test() {
     Epassportnfc.nfcStream.listen((NFCResponse event) {
-      print(event.status);
+      print("=================1111111========================");
+      print(event);
       datanfc = event;
       state = "Đặt thẻ vào vị trí quét để tiến hành quét";
 
