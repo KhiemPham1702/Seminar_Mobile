@@ -109,11 +109,9 @@ class Dialogs {
               const SizedBox(
                 height: 10,
               ),
+              InputView(text: '${dataNfc.firstName}' ?? '', title: 'Họ và tên'),
               InputView(
-                  text: '${dataNfc.firstName} ${dataNfc.lastName}' ?? '',
-                  title: 'Họ và tên'),
-              InputView(
-                text: '${dataNfc.personalNumber?.substring(0, 8)}****' ?? '',
+                text: '${dataNfc.personalNumber}' ?? '',
                 title: 'CCCD',
               ),
               InputView(
@@ -123,10 +121,6 @@ class Dialogs {
               InputView(
                 text: dataNfc.gender == '1' ? 'Nam' : 'Nữ',
                 title: "Giới tính",
-              ),
-              InputView(
-                text: dataNfc.nationality ?? '',
-                title: 'Quốc tịch',
               ),
             ],
           ),
