@@ -49,6 +49,7 @@ class NFCServices {
       }
     }
     catch (e){
+      debugPrint(e.toString());
       cubit.update(2);
     }
   }

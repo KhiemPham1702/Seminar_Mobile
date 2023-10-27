@@ -57,7 +57,9 @@ class Dialogs {
             listener: (BuildContext context, int state) async {
               if (state == 1 || state == 2) {
                 await Future.delayed(const Duration(seconds: 1));
-                Navigator.pop(context);
+                if(context.mounted) {
+                  Navigator.pop(context);
+                }
               }
             },
           );
@@ -65,6 +67,7 @@ class Dialogs {
   }
 
   static void showCCCD(BuildContext context, NFCResponse? dataNfc) {
+    debugPrint('=>>>>>>');
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -102,9 +105,17 @@ class Dialogs {
               const SizedBox(
                 height: 10,
               ),
-              Image.memory(
-                base64Decode(dataNfc!.imageData ?? ''),
+              Container(
                 height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey.shade300,
+                  image: DecorationImage(
+                    image: MemoryImage( base64Decode(dataNfc!.imageData ?? '')),
+                    fit: BoxFit.fill
+                  )
+                ),
               ),
               const SizedBox(
                 height: 10,

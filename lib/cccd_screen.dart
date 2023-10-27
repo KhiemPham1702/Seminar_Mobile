@@ -30,7 +30,6 @@ class _CCCDScreenState extends State<CCCDScreen> {
       print(event);
       datanfc = event;
       state = "Đặt thẻ vào vị trí quét để tiến hành quét";
-
       setState(() {
         if (event.status == 'READING') {
           isScanning = true;
@@ -67,17 +66,19 @@ class _CCCDScreenState extends State<CCCDScreen> {
     setState(() {
       _platformVersion = platformVersion;
     });
+
+    debugPrint('=>>>>$_platformVersion');
   }
 
   TextEditingController passportNumberController = TextEditingController()
-    ..text = '';
+    ..text = '051202003951';
   TextEditingController birthDayNumberController = TextEditingController()
-    ..text = '';
+    ..text = '020205';
   TextEditingController expireNumberController = TextEditingController()
-    ..text = '';
+    ..text = '270205';
 
   void showWaiting(BuildContext context) {
-    var alert = AlertDialog(
+    var alert = const AlertDialog(
       title: Text("NFC tag reader"),
       content: Text("Hold your Phone near an NFC enabled passport."),
     );
