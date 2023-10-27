@@ -53,7 +53,7 @@ class NFCServices {
     }
   }
 
-  void writeToNFC( int type, String text , BuildContext context, [Uint8List? uInt8List]) async {
+  void writeToNFC( int type, String text , BuildContext context) async {
     //type: 0 text, 1: url
     final cubit = context.read<LoadingCubit>();
     var availability = await FlutterNfcKit.nfcAvailability;
@@ -79,19 +79,6 @@ class NFCServices {
               ndef.UriRecord.fromString('0$text')
             ]);
           }
-          // else if (type == 2) {
-          //
-          //   String encodedString = base64Encode(uInt8List!);
-          //   debugPrint(encodedString.toString());
-          //   try {
-          //     await FlutterNfcKit.writeNDEFRecords([
-          //       ndef.TextRecord(text: '2$encodedString', language: 'en')
-          //     ]);
-          //   }
-          //   catch (e) {
-          //     debugPrint(e.toString());
-          //   }
-          // }
           cubit.update(1);
         }
       }
